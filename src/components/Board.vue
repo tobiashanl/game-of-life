@@ -18,27 +18,15 @@ export default {
   components: {
     Row
   },
-  mounted() {
-    this.generateNewRandomBoard();
-  },
-  data: () => ({
-    timeoutId: null
-  }),
   computed: {
     ...mapState(["board"])
   },
+  mounted() {
+    this.generateNewRandomBoard();
+  },
   methods: {
     ...mapMutations(["generateNewRandomBoard", "updateBoard"]),
-    ...mapActions(["calculateNextBoard"]),
-    start() {
-      this.timeoutId = setTimeout(() => {
-        this.calculateNextBoard();
-        this.start();
-      }, 200);
-    },
-    stop() {
-      clearTimeout(this.timeoutId);
-    }
+    ...mapActions(["calculateNextBoard", "start", "stop"])
   }
 };
 </script>

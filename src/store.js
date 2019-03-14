@@ -4,6 +4,7 @@ import { repeat } from "ramda";
 
 Vue.use(Vuex);
 
+const DEFAULT_TIMEOUT = 200;
 const ROWS = 200;
 const COLUMNS = 200;
 const getEmptyBoard = () => repeat(repeat(0, COLUMNS), ROWS);
@@ -11,7 +12,8 @@ const getEmptyBoard = () => repeat(repeat(0, COLUMNS), ROWS);
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== "production",
   state: {
-    board: []
+    board: [],
+    timeoutId: null
   },
   getters: {
     getLiveNeighborsForCell: state => (row, col) => {
@@ -39,6 +41,9 @@ export default new Vuex.Store({
     },
     updateBoard: (state, { board }) => {
       state.board = board;
+    },
+    setTimeoutId: (state, { timeoutId }) => {
+      state.timeoutId = timeoutId;
     }
   },
   actions: {
@@ -55,6 +60,16 @@ export default new Vuex.Store({
         })
       );
       commit("updateBoard", { board });
+    },
+    start: ({ commit, dispatch }) => {
+      const timeoutId = setTimeout(() => {
+        dispatch("calculateNextBoard");
+        dispatch("start");
+      }, DEFAULT_TIMEOUT);
+      commit("setTimeoutId", { timeoutId });
+    },
+    stop: ({ state }) => {
+      clearTimeout(state.timeoutId);
     }
   }
 });
