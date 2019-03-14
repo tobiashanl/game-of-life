@@ -1,11 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Game of Life</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-toolbar>
+    <Toolbar />
     <v-content class="content">
       <Board />
     </v-content>
@@ -14,10 +9,12 @@
 
 <script>
 import Board from "./components/Board.vue";
+import Toolbar from "./Toolbar";
 
 export default {
   name: "App",
   components: {
+    Toolbar,
     Board
   }
 };

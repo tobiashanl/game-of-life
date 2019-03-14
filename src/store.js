@@ -13,7 +13,7 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== "production",
   state: {
     board: [],
-    timeoutId: null
+    isPlaying: null
   },
   getters: {
     getLiveNeighborsForCell: state => (row, col) => {
@@ -42,8 +42,8 @@ export default new Vuex.Store({
     updateBoard: (state, { board }) => {
       state.board = board;
     },
-    setTimeoutId: (state, { timeoutId }) => {
-      state.timeoutId = timeoutId;
+    setIsPlaying: (state, { isPlaying }) => {
+      state.isPlaying = isPlaying;
     }
   },
   actions: {
@@ -62,14 +62,16 @@ export default new Vuex.Store({
       commit("updateBoard", { board });
     },
     start: ({ commit, dispatch }) => {
+      dispatch("calculateNextBoard");
       const timeoutId = setTimeout(() => {
         dispatch("calculateNextBoard");
         dispatch("start");
       }, DEFAULT_TIMEOUT);
-      commit("setTimeoutId", { timeoutId });
+      commit("setIsPlaying", { isPlaying: timeoutId });
     },
-    stop: ({ state }) => {
-      clearTimeout(state.timeoutId);
+    stop: ({ state, commit }) => {
+      clearTimeout(state.isPlaying);
+      commit("setIsPlaying", { isPlaying: null });
     }
   }
 });

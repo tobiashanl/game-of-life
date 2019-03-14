@@ -1,12 +1,7 @@
 <template>
-  <div class="board">
-    <v-btn @click="generateNewRandomBoard">Generate new board</v-btn>
-    <v-btn @click="start">Start</v-btn>
-    <v-btn @click="stop">Stop</v-btn>
-    <table>
-      <Row v-for="(row, index) in board" :key="index" :row="row" />
-    </table>
-  </div>
+  <table class="board">
+    <Row v-for="(row, index) in board" :key="index" :row="row" />
+  </table>
 </template>
 
 <script>
@@ -26,7 +21,7 @@ export default {
   },
   methods: {
     ...mapMutations(["generateNewRandomBoard", "updateBoard"]),
-    ...mapActions(["calculateNextBoard", "start", "stop"])
+    ...mapActions(["calculateNextBoard"])
   }
 };
 </script>
