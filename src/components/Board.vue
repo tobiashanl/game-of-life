@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <button @click="updateBoard">Generate new board</button>
-    <button @click="start">Start</button>
-    <button @click="stop">Stop</button>
+  <div class="board">
+    <v-btn @click="updateBoard">Generate new board</v-btn>
+    <v-btn @click="start">Start</v-btn>
+    <v-btn @click="stop">Stop</v-btn>
     <table>
       <Row v-for="(row, index) in board" :key="index" :row="row" />
     </table>
@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style scoped>
-div {
+.board {
   width: 2000px;
 }
 </style>
