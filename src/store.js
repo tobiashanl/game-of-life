@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { repeat } from "ramda";
+import { nth, range, repeat } from "ramda";
 
 Vue.use(Vuex);
 
@@ -16,21 +16,20 @@ export default new Vuex.Store({
     isPlaying: null
   },
   getters: {
-    getLiveNeighborsForCell: state => (row, col) => {
-      let count = 0;
+    getLiveNeighborsForCell: state => (rowIndex, colIndex) => {
+      const rowRange = range(rowIndex - 1, (rowIndex + 2) % ROWS);
+      const colRange = range(colIndex - 1, (colIndex + 2) % COLUMNS);
 
-      for (let r = -1; r <= 1; r++) {
-        for (let c = -1; c <= 1; c++) {
-          if (!(r === 0 && c === 0)) {
-            try {
-              if (state.board[row + r][col + c] === 1) count++;
-            } catch (e) {
-              // ignore for now
-            }
-          }
-        }
-      }
-      return count;
+      const count = rowRange.reduce(
+        (acc, row) =>
+          acc +
+          colRange.reduce(
+            (colAcc, col) => colAcc + nth(col, nth(row, state.board)),
+            0
+          ),
+        0
+      );
+      return count - state.board[rowIndex][colIndex];
     }
   },
   mutations: {
