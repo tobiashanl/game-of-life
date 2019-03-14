@@ -11,7 +11,12 @@
 <script>
 export default {
   name: "Row",
-  props: ["row"]
+  props: {
+    row: {
+      type: Array,
+      required: true
+    }
+  }
 };
 </script>
 
