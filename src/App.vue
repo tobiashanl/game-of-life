@@ -9,7 +9,7 @@
 
 <script>
 import Board from "./components/Board.vue";
-import Toolbar from "./Toolbar";
+import Toolbar from "./components/Toolbar";
 
 export default {
   name: "App",
