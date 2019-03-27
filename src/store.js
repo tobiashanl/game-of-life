@@ -43,6 +43,12 @@ export default new Vuex.Store({
     },
     setIsPlaying: (state, { isPlaying }) => {
       state.isPlaying = isPlaying;
+    },
+    toggleCellState: (state, { rowIndex, colIndex }) => {
+      if (state.isPlaying === null) {
+        const oldValue = state.board[rowIndex][colIndex];
+        Vue.set(state.board[rowIndex], colIndex, oldValue === 1 ? 0 : 1);
+      }
     }
   },
   actions: {

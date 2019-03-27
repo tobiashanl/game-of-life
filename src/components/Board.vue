@@ -1,6 +1,11 @@
 <template>
   <table class="board">
-    <Row v-for="(row, index) in board" :key="index" :row="row" />
+    <Row
+      v-for="(row, index) in board"
+      :key="index"
+      :row="row"
+      :row-index="index"
+    />
   </table>
 </template>
 
