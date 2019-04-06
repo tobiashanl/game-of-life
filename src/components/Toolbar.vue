@@ -12,7 +12,7 @@
     <v-btn flat icon @click="clearBoard">
       <v-icon>clear</v-icon>
     </v-btn>
-    <v-btn flat icon @click="generateNewRandomBoard">
+    <v-btn flat icon @click="setRandomBoard">
       <v-icon>refresh</v-icon>
     </v-btn>
     <v-btn v-if="!isPlaying" flat icon @click="start">
@@ -42,12 +42,12 @@ export default {
         return this.$store.state.pattern;
       },
       set(pattern) {
-        this.placePattern({ pattern });
+        this.setPattern({ pattern });
       }
     }
   },
   methods: {
-    ...mapMutations(["clearBoard", "generateNewRandomBoard", "placePattern"]),
+    ...mapMutations(["clearBoard", "setRandomBoard", "setPattern"]),
     ...mapActions(["start", "stop"])
   }
 };

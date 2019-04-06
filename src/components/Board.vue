@@ -22,10 +22,10 @@ export default {
     ...mapGetters({ board: "getDisplayedBoard" })
   },
   mounted() {
-    this.generateNewRandomBoard();
+    this.setRandomBoard();
   },
   methods: {
-    ...mapMutations(["generateNewRandomBoard", "updateBoard"]),
+    ...mapMutations(["setRandomBoard"]),
     ...mapActions(["calculateNextBoard"])
   }
 };

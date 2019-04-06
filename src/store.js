@@ -68,13 +68,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    generateNewRandomBoard: state => {
+    setBoard: (state, { board }) => {
+      state.board = board;
+    },
+    setRandomBoard: state => {
       state.board = getEmptyBoard().map(row =>
         row.map(() => (Math.random() < 0.9 ? 0 : 1))
       );
-    },
-    updateBoard: (state, { board }) => {
-      state.board = board;
     },
     clearBoard: state => {
       state.board = getEmptyBoard();
@@ -88,7 +88,7 @@ export default new Vuex.Store({
         Vue.set(state.board[rowIndex], colIndex, oldValue === 1 ? 0 : 1);
       }
     },
-    placePattern: (state, { pattern }) => {
+    setPattern: (state, { pattern }) => {
       state.pattern = pattern;
     },
     setHoveredCell: (state, { rowIndex, colIndex }) => {
@@ -108,7 +108,7 @@ export default new Vuex.Store({
           }
         })
       );
-      commit("updateBoard", { board });
+      commit("setBoard", { board });
     },
     start: ({ commit, dispatch }) => {
       dispatch("calculateNextBoard");
