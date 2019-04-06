@@ -96,8 +96,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    updateBoard: ({getters, commit }) => {
-      commit("setBoard", {board: getters.getDisplayedBoard});
+    updateBoard: ({ getters, commit }) => {
+      commit("setBoard", { board: getters.getDisplayedBoard });
     },
     calculateNextBoard: ({ state, getters, commit }) => {
       const board = getEmptyBoard().map((row, rowIndex) =>
