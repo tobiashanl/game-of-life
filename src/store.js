@@ -82,12 +82,6 @@ export default new Vuex.Store({
     setIsPlaying: (state, { isPlaying }) => {
       state.isPlaying = isPlaying;
     },
-    toggleCellState: (state, { rowIndex, colIndex }) => {
-      if (state.isPlaying === null) {
-        const oldValue = state.board[rowIndex][colIndex];
-        Vue.set(state.board[rowIndex], colIndex, oldValue === 1 ? 0 : 1);
-      }
-    },
     setPattern: (state, { pattern }) => {
       state.pattern = pattern;
     },
@@ -96,6 +90,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    updateBoard: ({getters, commit }) => {
+      commit("setBoard", {board: getters.getDisplayedBoard});
+    },
     calculateNextBoard: ({ state, getters, commit }) => {
       const board = getEmptyBoard().map((row, rowIndex) =>
         row.map((cell, colIndex) => {
