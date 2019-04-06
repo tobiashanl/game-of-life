@@ -4,20 +4,11 @@
       <span>Game of Life</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-menu>
-      <template v-slot:activator="{ on }">
-        <v-btn flat icon v-on="on"><v-icon>add_circle</v-icon></v-btn>
-      </template>
-      <v-list>
-        <v-list-tile
-          v-for="(label, id) in patterns"
-          :key="id"
-          @click="placePattern({ pattern: id })"
-        >
-          <v-list-tile-title>{{ label }}</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
+    <v-select
+      v-model="selectedPattern"
+      :items="patterns"
+      class="pattern-selector"
+    />
     <v-btn flat icon @click="generateNewRandomBoard">
       <v-icon>refresh</v-icon>
     </v-btn>
@@ -42,7 +33,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isPlaying"])
+    ...mapState(["isPlaying"]),
+    selectedPattern: {
+      get() {
+        return this.$store.state.pattern;
+      },
+      set(pattern) {
+        this.placePattern({ pattern });
+      }
+    }
   },
   methods: {
     ...mapMutations(["generateNewRandomBoard", "placePattern"]),
@@ -50,3 +49,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.pattern-selector {
+  flex: none;
+}
+</style>

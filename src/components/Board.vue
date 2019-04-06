@@ -10,10 +10,10 @@
 </template>
 
 <script>
-  import Row from "./Row.vue";
-  import {mapActions, mapGetters, mapMutations} from "vuex";
+import Row from "./Row.vue";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
-  export default {
+export default {
   name: "Board",
   components: {
     Row
@@ -33,6 +33,6 @@
 
 <style scoped>
 .board {
-  width: 1500px;
+  width: 750px;
 }
 </style>

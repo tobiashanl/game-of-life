@@ -1,26 +1,27 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {compose, nth, range, repeat, update} from "ramda";
+import { compose, nth, range, repeat, update } from "ramda";
 
 Vue.use(Vuex);
 
 const DEFAULT_TIMEOUT = 200;
-const ROWS = 100;
-const COLUMNS = 100;
-export const PATTERNS = {
-  single: "Single",
-  block: "Block",
-  beehive: "Beehive",
-  blinker: "Blinker"
-};
+const ROWS = 50;
+const COLUMNS = 50;
+const PATTERN_SINGLE = "single";
+const PATTERN_BLOCK = "block";
+export const PATTERNS = [
+  { value: PATTERN_SINGLE, text: "Single" },
+  { value: PATTERN_BLOCK, text: "Block" }
+];
+
 const getEmptyBoard = () => repeat(repeat(0, COLUMNS), ROWS);
 
 const boardMappers = {
-  single: hoveredCell => (row, rowIndex) => {
+  [PATTERN_SINGLE]: hoveredCell => (row, rowIndex) => {
     if (hoveredCell.rowIndex !== rowIndex) return row;
     return update(hoveredCell.colIndex, 1, row);
   },
-  block: hoveredCell => (row, rowIndex) => {
+  [PATTERN_BLOCK]: hoveredCell => (row, rowIndex) => {
     if (
       hoveredCell.rowIndex === rowIndex ||
       hoveredCell.rowIndex + 1 === rowIndex
@@ -38,7 +39,7 @@ export default new Vuex.Store({
   state: {
     board: [],
     isPlaying: null,
-    pattern: "single",
+    pattern: PATTERN_SINGLE,
     hoveredCell: {
       rowIndex: null,
       cellIndex: null
@@ -46,7 +47,9 @@ export default new Vuex.Store({
   },
   getters: {
     getDisplayedBoard: state => {
-      return state.board.map(boardMappers[state.pattern](state.hoveredCell));
+      return state.isPlaying
+        ? state.board
+        : state.board.map(boardMappers[state.pattern](state.hoveredCell));
     },
     getLiveNeighborsForCell: state => (rowIndex, colIndex) => {
       const rowRange = range(rowIndex - 1, (rowIndex + 2) % ROWS);
