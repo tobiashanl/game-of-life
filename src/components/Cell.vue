@@ -1,15 +1,14 @@
 <template>
   <td
     :class="{ live: content === 1 }"
-    @click="updateBoard"
     @mouseover="setHoveredCell({ rowIndex, colIndex })"
   ></td>
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+  import {mapMutations} from "vuex";
 
-export default {
+  export default {
   name: "Cell",
   props: {
     rowIndex: {
@@ -31,8 +30,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setHoveredCell"]),
-    ...mapActions(["updateBoard"])
+    ...mapMutations(["setHoveredCell"])
   }
 };
 </script>

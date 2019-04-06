@@ -5,8 +5,8 @@ import { compose, nth, range, repeat, update } from "ramda";
 Vue.use(Vuex);
 
 const DEFAULT_TIMEOUT = 200;
-const ROWS = 50;
-const COLUMNS = 50;
+const ROWS = 100;
+const COLUMNS = 100;
 const PATTERN_ERASE = "erase";
 const PATTERN_SINGLE = "single";
 const PATTERN_BLOCK = "block";

@@ -1,5 +1,5 @@
 <template>
-  <table class="board">
+  <table class="board" @click="updateBoard">
     <Row
       v-for="(row, index) in board"
       :key="index"
@@ -26,13 +26,13 @@ export default {
   },
   methods: {
     ...mapMutations(["setRandomBoard"]),
-    ...mapActions(["calculateNextBoard"])
+    ...mapActions(["calculateNextBoard", "updateBoard"])
   }
 };
 </script>
 
 <style scoped>
 .board {
-  width: 750px;
+  width: 1500px;
 }
 </style>
