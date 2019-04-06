@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Board from "./components/Board.vue";
-import Toolbar from "./components/Toolbar";
+import Board from './components/Board.vue';
+import Toolbar from './components/Toolbar';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Toolbar,
     Board

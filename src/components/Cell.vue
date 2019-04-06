@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex';
 
 export default {
-  name: "Cell",
+  name: 'Cell',
   props: {
     rowIndex: {
       type: Number,
@@ -30,7 +30,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setHoveredCell"])
+    ...mapMutations(['setHoveredCell'])
   }
 };
 </script>

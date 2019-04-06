@@ -25,18 +25,18 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from "vuex";
-import { PATTERNS } from "../store";
+import { mapActions, mapMutations, mapState } from 'vuex';
+import { PATTERNS } from '../store';
 
 export default {
-  name: "Toolbar",
+  name: 'Toolbar',
   data() {
     return {
       patterns: PATTERNS
     };
   },
   computed: {
-    ...mapState(["isPlaying"]),
+    ...mapState(['isPlaying']),
     selectedPattern: {
       get() {
         return this.$store.state.pattern;
@@ -47,8 +47,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["clearBoard", "setRandomBoard", "setPattern"]),
-    ...mapActions(["start", "stop"])
+    ...mapMutations(['clearBoard', 'setRandomBoard', 'setPattern']),
+    ...mapActions(['start', 'stop'])
   }
 };
 </script>

@@ -10,23 +10,23 @@
 </template>
 
 <script>
-import Row from "./Row.vue";
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import Row from './Row.vue';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: "Board",
+  name: 'Board',
   components: {
     Row
   },
   computed: {
-    ...mapGetters({ board: "getDisplayedBoard" })
+    ...mapGetters({ board: 'getDisplayedBoard' })
   },
   mounted() {
     this.setRandomBoard();
   },
   methods: {
-    ...mapMutations(["setRandomBoard"]),
-    ...mapActions(["calculateNextBoard", "updateBoard"])
+    ...mapMutations(['setRandomBoard']),
+    ...mapActions(['calculateNextBoard', 'updateBoard'])
   }
 };
 </script>

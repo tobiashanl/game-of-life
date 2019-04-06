@@ -1,19 +1,19 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { compose, nth, range, repeat, update } from "ramda";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { compose, nth, range, repeat, update } from 'ramda';
 
 Vue.use(Vuex);
 
 const DEFAULT_TIMEOUT = 200;
 const ROWS = 100;
 const COLUMNS = 100;
-const PATTERN_ERASE = "erase";
-const PATTERN_SINGLE = "single";
-const PATTERN_BLOCK = "block";
+const PATTERN_ERASE = 'erase';
+const PATTERN_SINGLE = 'single';
+const PATTERN_BLOCK = 'block';
 export const PATTERNS = [
-  { value: PATTERN_ERASE, text: "Eraser" },
-  { value: PATTERN_SINGLE, text: "Single" },
-  { value: PATTERN_BLOCK, text: "Block" }
+  { value: PATTERN_ERASE, text: 'Eraser' },
+  { value: PATTERN_SINGLE, text: 'Single' },
+  { value: PATTERN_BLOCK, text: 'Block' }
 ];
 
 const getEmptyBoard = () => repeat(repeat(0, COLUMNS), ROWS);
@@ -41,7 +41,7 @@ const boardMappers = {
 };
 
 export default new Vuex.Store({
-  strict: process.env.NODE_ENV !== "production",
+  strict: process.env.NODE_ENV !== 'production',
   state: {
     board: [],
     isPlaying: null,
@@ -97,7 +97,7 @@ export default new Vuex.Store({
   },
   actions: {
     updateBoard: ({ getters, commit }) => {
-      commit("setBoard", { board: getters.getDisplayedBoard });
+      commit('setBoard', { board: getters.getDisplayedBoard });
     },
     calculateNextBoard: ({ state, getters, commit }) => {
       const board = getEmptyBoard().map((row, rowIndex) =>
@@ -111,19 +111,19 @@ export default new Vuex.Store({
           }
         })
       );
-      commit("setBoard", { board });
+      commit('setBoard', { board });
     },
     start: ({ commit, dispatch }) => {
-      dispatch("calculateNextBoard");
+      dispatch('calculateNextBoard');
       const timeoutId = setTimeout(() => {
-        dispatch("calculateNextBoard");
-        dispatch("start");
+        dispatch('calculateNextBoard');
+        dispatch('start');
       }, DEFAULT_TIMEOUT);
-      commit("setIsPlaying", { isPlaying: timeoutId });
+      commit('setIsPlaying', { isPlaying: timeoutId });
     },
     stop: ({ state, commit }) => {
       clearTimeout(state.isPlaying);
-      commit("setIsPlaying", { isPlaying: null });
+      commit('setIsPlaying', { isPlaying: null });
     }
   }
 });

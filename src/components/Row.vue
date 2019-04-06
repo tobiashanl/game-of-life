@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import Cell from "./Cell";
+import Cell from './Cell';
 
 export default {
-  name: "Row",
+  name: 'Row',
   components: {
     Cell
   },
