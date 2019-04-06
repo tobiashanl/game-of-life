@@ -1,19 +1,23 @@
 <template>
   <tr>
-    <td
-      v-for="(col, index) in row"
-      :key="index"
-      :class="{ live: col === 1 }"
-      @click="handleClick(index)"
-    ></td>
+    <Cell
+      v-for="(cellContent, colIndex) in row"
+      :key="colIndex"
+      :row-index="rowIndex"
+      :content="cellContent"
+      :col-index="colIndex"
+    />
   </tr>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import Cell from "./Cell";
 
 export default {
   name: "Row",
+  components: {
+    Cell
+  },
   props: {
     row: {
       type: Array,
@@ -23,22 +27,6 @@ export default {
       type: Number,
       required: true
     }
-  },
-  methods: {
-    ...mapMutations(["toggleCellState"]),
-    handleClick(colIndex) {
-      this.toggleCellState({ rowIndex: this.rowIndex, colIndex });
-    }
   }
 };
 </script>
-
-<style scoped>
-td {
-  width: 10px;
-  height: 10px;
-}
-.live {
-  background-color: black;
-}
-</style>

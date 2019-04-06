@@ -10,16 +10,16 @@
 </template>
 
 <script>
-import Row from "./Row.vue";
-import { mapActions, mapMutations, mapState } from "vuex";
+  import Row from "./Row.vue";
+  import {mapActions, mapGetters, mapMutations} from "vuex";
 
-export default {
+  export default {
   name: "Board",
   components: {
     Row
   },
   computed: {
-    ...mapState(["board"])
+    ...mapGetters({ board: "getDisplayedBoard" })
   },
   mounted() {
     this.generateNewRandomBoard();
@@ -33,6 +33,6 @@ export default {
 
 <style scoped>
 .board {
-  width: 2000px;
+  width: 1500px;
 }
 </style>
