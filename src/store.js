@@ -7,9 +7,11 @@ Vue.use(Vuex);
 const DEFAULT_TIMEOUT = 200;
 const ROWS = 50;
 const COLUMNS = 50;
+const PATTERN_ERASE = "erase";
 const PATTERN_SINGLE = "single";
 const PATTERN_BLOCK = "block";
 export const PATTERNS = [
+  { value: PATTERN_ERASE, text: "Eraser" },
   { value: PATTERN_SINGLE, text: "Single" },
   { value: PATTERN_BLOCK, text: "Block" }
 ];
@@ -17,6 +19,10 @@ export const PATTERNS = [
 const getEmptyBoard = () => repeat(repeat(0, COLUMNS), ROWS);
 
 const boardMappers = {
+  [PATTERN_ERASE]: hoveredCell => (row, rowIndex) => {
+    if (hoveredCell.rowIndex !== rowIndex) return row;
+    return update(hoveredCell.colIndex, 0, row);
+  },
   [PATTERN_SINGLE]: hoveredCell => (row, rowIndex) => {
     if (hoveredCell.rowIndex !== rowIndex) return row;
     return update(hoveredCell.colIndex, 1, row);
