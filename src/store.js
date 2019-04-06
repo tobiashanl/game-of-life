@@ -10,10 +10,12 @@ const COLUMNS = 100;
 const PATTERN_ERASE = 'erase';
 const PATTERN_SINGLE = 'single';
 const PATTERN_BLOCK = 'block';
+const PATTERN_BLINKER = 'blinker';
 export const PATTERNS = [
   { value: PATTERN_ERASE, text: 'Eraser' },
   { value: PATTERN_SINGLE, text: 'Single' },
-  { value: PATTERN_BLOCK, text: 'Block' }
+  { value: PATTERN_BLOCK, text: 'Block' },
+  { value: PATTERN_BLINKER, text: 'Blinker' }
 ];
 
 const getEmptyBoard = () => repeat(repeat(0, COLUMNS), ROWS);
@@ -37,6 +39,14 @@ const boardMappers = {
         update(hoveredCell.colIndex + 1, 1)
       )(row);
     return row;
+  },
+  [PATTERN_BLINKER]: hoveredCell => (row, rowIndex) => {
+    if (hoveredCell.rowIndex !== rowIndex) return row;
+    return compose(
+      update(hoveredCell.colIndex, 1),
+      update(hoveredCell.colIndex + 1, 1),
+      update(hoveredCell.colIndex + 2, 1)
+    )(row);
   }
 };
 
