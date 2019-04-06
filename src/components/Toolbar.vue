@@ -9,6 +9,9 @@
       :items="patterns"
       class="pattern-selector"
     />
+    <v-btn flat icon @click="clearBoard">
+      <v-icon>clear</v-icon>
+    </v-btn>
     <v-btn flat icon @click="generateNewRandomBoard">
       <v-icon>refresh</v-icon>
     </v-btn>
@@ -44,7 +47,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["generateNewRandomBoard", "placePattern"]),
+    ...mapMutations(["clearBoard", "generateNewRandomBoard", "placePattern"]),
     ...mapActions(["start", "stop"])
   }
 };

@@ -76,6 +76,9 @@ export default new Vuex.Store({
     updateBoard: (state, { board }) => {
       state.board = board;
     },
+    clearBoard: state => {
+      state.board = getEmptyBoard();
+    },
     setIsPlaying: (state, { isPlaying }) => {
       state.isPlaying = isPlaying;
     },
