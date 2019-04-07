@@ -68,8 +68,12 @@ export default new Vuex.Store({
         : state.board.map(boardMappers[state.pattern](state.hoveredCell));
     },
     getLiveNeighborsForCell: state => (rowIndex, colIndex) => {
-      const rowRange = range(rowIndex - 1, (rowIndex + 2) % ROWS);
-      const colRange = range(colIndex - 1, (colIndex + 2) % COLUMNS);
+      const rowRange = range(rowIndex - 1, rowIndex + 2).map(
+        rowIndex => rowIndex % ROWS
+      );
+      const colRange = range(colIndex - 1, colIndex + 2).map(
+        colIndex => colIndex % COLUMNS
+      );
 
       const count = rowRange.reduce(
         (acc, row) =>
