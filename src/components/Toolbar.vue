@@ -15,6 +15,9 @@
     <v-btn flat icon title="Set random board" @click="setRandomBoard">
       <v-icon>refresh</v-icon>
     </v-btn>
+    <v-btn flat icon title="Next generation" @click="calculateNextBoard">
+      <v-icon>redo</v-icon>
+    </v-btn>
     <v-btn v-if="!isPlaying" flat icon title="Play" @click="start">
       <v-icon>play_arrow</v-icon>
     </v-btn>
@@ -48,7 +51,7 @@ export default {
   },
   methods: {
     ...mapMutations(['clearBoard', 'setRandomBoard', 'setPattern']),
-    ...mapActions(['start', 'stop'])
+    ...mapActions(['start', 'stop', 'calculateNextBoard'])
   }
 };
 </script>
