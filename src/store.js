@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {nth, range, repeat} from 'ramda';
-import {boardMappers, PATTERN_SINGLE} from './utils/patterns';
+import { nth, range, repeat } from 'ramda';
+import { boardMappers, PATTERN_SINGLE } from './utils/patterns';
 
 Vue.use(Vuex);
 

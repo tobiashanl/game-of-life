@@ -29,7 +29,7 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex';
-import {PATTERNS} from '../utils/patterns';
+import { PATTERNS } from '../utils/patterns';
 
 export default {
   name: 'Toolbar',
