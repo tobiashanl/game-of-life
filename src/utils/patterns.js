@@ -1,4 +1,4 @@
-import { compose, update } from 'ramda';
+import {propOr} from 'ramda';
 
 const PATTERN_ERASE = 'erase';
 export const PATTERN_SINGLE = 'single';
@@ -15,64 +15,23 @@ export const PATTERNS = [
   { value: PATTERN_GLIDER, text: 'Glider' }
 ];
 
-export const boardMappers = {
-  [PATTERN_ERASE]: hoveredCell => (row, rowIndex) => {
-    if (hoveredCell.rowIndex !== rowIndex) return row;
-    return update(hoveredCell.colIndex, 0, row);
-  },
-  [PATTERN_SINGLE]: hoveredCell => (row, rowIndex) => {
-    if (hoveredCell.rowIndex !== rowIndex) return row;
-    return update(hoveredCell.colIndex, 1, row);
-  },
-  [PATTERN_BLOCK]: hoveredCell => (row, rowIndex) => {
-    if (
-      hoveredCell.rowIndex === rowIndex ||
-      hoveredCell.rowIndex + 1 === rowIndex
-    )
-      return compose(
-        update(hoveredCell.colIndex, 1),
-        update(hoveredCell.colIndex + 1, 1)
-      )(row);
-    return row;
-  },
-  [PATTERN_BLINKER]: hoveredCell => (row, rowIndex) => {
-    if (hoveredCell.rowIndex !== rowIndex) return row;
-    return compose(
-      update(hoveredCell.colIndex, 1),
-      update(hoveredCell.colIndex + 1, 1),
-      update(hoveredCell.colIndex + 2, 1)
-    )(row);
-  },
-  [PATTERN_BEACON]: hoveredCell => (row, rowIndex) => {
-    if (
-      hoveredCell.rowIndex === rowIndex ||
-      hoveredCell.rowIndex + 1 === rowIndex
-    )
-      return compose(
-        update(hoveredCell.colIndex, 1),
-        update(hoveredCell.colIndex + 1, 1)
-      )(row);
-    if (
-      hoveredCell.rowIndex + 2 === rowIndex ||
-      hoveredCell.rowIndex + 3 === rowIndex
-    )
-      return compose(
-        update(hoveredCell.colIndex + 2, 1),
-        update(hoveredCell.colIndex + 3, 1)
-      )(row);
-    return row;
-  },
-  [PATTERN_GLIDER]: hoveredCell => (row, rowIndex) => {
-    if (hoveredCell.rowIndex === rowIndex)
-      return update(hoveredCell.colIndex + 1, 1, row);
-    if (hoveredCell.rowIndex + 1 === rowIndex)
-      return update(hoveredCell.colIndex + 2, 1, row);
-    if (hoveredCell.rowIndex + 2 === rowIndex)
-      return compose(
-        update(hoveredCell.colIndex, 1),
-        update(hoveredCell.colIndex + 1, 1),
-        update(hoveredCell.colIndex + 2, 1)
-      )(row);
-    return row;
-  }
+const PATTERN_DEFINITIONS = {
+  [PATTERN_ERASE]: [[0]],
+  [PATTERN_SINGLE]: [[1]],
+  [PATTERN_BLOCK]: [[1, 1], [1, 1]],
+  [PATTERN_BLINKER]: [[1, 1, 1]],
+  [PATTERN_BEACON]: [[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]],
+  [PATTERN_GLIDER]: [[0, 1, 0], [0, 0, 1], [1, 1, 1]]
 };
+
+const updateRow = (mask, baseColIndex, row) =>
+  mask
+    ? row.map((cell, colIndex) => propOr(cell, colIndex - baseColIndex, mask))
+    : row;
+
+export const getBoardMapper = (pattern, hoveredCell) => (row, rowIndex) =>
+  updateRow(
+    PATTERN_DEFINITIONS[pattern][rowIndex - hoveredCell.rowIndex],
+    hoveredCell.colIndex,
+    row
+  );

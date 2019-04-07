@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { nth, range, repeat } from 'ramda';
-import { boardMappers, PATTERN_SINGLE } from './utils/patterns';
+import { getBoardMapper, PATTERN_SINGLE } from './utils/patterns';
 
 Vue.use(Vuex);
 
@@ -26,7 +26,7 @@ export default new Vuex.Store({
     getDisplayedBoard: state => {
       return state.isPlaying
         ? state.board
-        : state.board.map(boardMappers[state.pattern](state.hoveredCell));
+        : state.board.map(getBoardMapper(state.pattern, state.hoveredCell));
     },
     getLiveNeighborsForCell: state => (rowIndex, colIndex) => {
       const rowRange = range(rowIndex - 1, rowIndex + 2).map(
