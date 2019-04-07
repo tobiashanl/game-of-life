@@ -125,14 +125,13 @@ export default new Vuex.Store({
     },
     start: ({ commit, dispatch }) => {
       dispatch('calculateNextBoard');
-      const timeoutId = setTimeout(() => {
+      const timeoutId = setInterval(() => {
         dispatch('calculateNextBoard');
-        dispatch('start');
       }, DEFAULT_TIMEOUT);
       commit('setIsPlaying', { isPlaying: timeoutId });
     },
     stop: ({ state, commit }) => {
-      clearTimeout(state.isPlaying);
+      clearInterval(state.isPlaying);
       commit('setIsPlaying', { isPlaying: null });
     }
   }
