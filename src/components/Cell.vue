@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import {mapMutations, mapState} from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'Cell',
@@ -24,9 +24,9 @@ export default {
       required: true
     }
   },
-    computed: {
+  computed: {
     ...mapState(['isPlaying'])
-    },
+  },
   methods: {
     ...mapMutations(['setHoveredCell'])
   }
