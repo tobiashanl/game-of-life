@@ -1,4 +1,4 @@
-import {propOr} from 'ramda';
+import { propOr } from 'ramda';
 
 const PATTERN_ERASE = 'erase';
 export const PATTERN_SINGLE = 'single';
